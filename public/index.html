@@ -14,242 +14,151 @@
 
   <style>
     :root {
-      --nav-h: 60px;
-      --fg: #e5e7eb;
-      --fg-dim: #9ca3af;
-      --accent: #38bdf8;
-      --accent-green: #22c55e;
+      --nav-h: 48px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body { height: 100%; }
+    html, body {
+      height: 100%;
+    }
 
     body {
       margin: 0;
       font-family: "Poppins", system-ui, sans-serif;
+
+      /* default (dark) theme values */
+      --bg: #050816;
+      --panel: #020617;
+      --fg: #f9fafb;
+      --fg-dim: #9ca3af;
+      --border: #4b5563;
+      --accent: #ffffff;
+      --accent-text: #000000;
+
+      background: var(--bg);
       color: var(--fg);
-      background:
-        radial-gradient(circle at 0% 0%, #0f172a 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, #1e293b 0, transparent 55%),
-        #020617;
       overflow: hidden;
-      position: relative;
     }
 
-    /* subtle stars */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -40px;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.6) 0, transparent 55%),
-        radial-gradient(circle, rgba(148,163,184,0.7) 0, transparent 55%);
-      background-size: 2px 2px, 1px 1px;
-      opacity: 0.4;
-      animation: drift 60s linear infinite;
-      mix-blend-mode: screen;
-      z-index: 0;
+    /* LIGHT MODE – baby blue + soft panel */
+    body[data-theme="light"] {
+      --bg: #dbeafe;        /* baby blue */
+      --panel: #f9fafb;     /* soft white panel */
+      --fg: #020617;
+      --fg-dim: #4b5563;
+      --border: #bfdbfe;    /* light blue border */
+      --accent: #0f172a;    /* dark navy button */
+      --accent-text: #f9fafb;
     }
 
-    @keyframes drift {
-      from { transform: translate3d(0, -30px, 0); }
-      to   { transform: translate3d(0, 30px, 0); }
-    }
-
-    /* simple transparent nav */
+    /* top bar */
     header {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: var(--nav-h);
       display: flex;
       align-items: center;
-      justify-content: center;
-      z-index: 10;
-      pointer-events: none;
-      padding: 8px 0;
-    }
-
-    .nav-inner {
-      pointer-events: auto;
-      max-width: 900px;
-      width: 100%;
-      padding: 0 16px;
-    }
-
-    .nav {
-      height: 44px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: transparent;              /* <- transparent now */
-      backdrop-filter: blur(16px);
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 12px;
-      box-shadow: none;                     /* no big shadow blob */
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      z-index: 3;
     }
 
-    .nav-left {
+    .brand {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .brand span {
+      color: var(--fg-dim);
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .logo {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      background:
-        conic-gradient(from 0deg, #f97316, #facc15, #22c55e, #38bdf8, #6366f1, #ec4899, #f97316);
-      padding: 2px;
-      box-shadow: 0 0 0 2px #020617;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .logo-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      background: #020617;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #e5e7eb;
-    }
-
-    .nav-title-main {
-      font-weight: 600;
-    }
-
-    .nav-title-sub {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--fg-dim);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.9);
+    .btn-pill {
+      border: 1px solid var(--border);
+      background: var(--panel);
       color: var(--fg);
+      border-radius: 999px;
       padding: 4px 10px;
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 12px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .nav-btn:active {
+    .btn-pill:active {
       transform: translateY(1px);
     }
 
-    /* floating + button when header is hidden */
-    #header-toggle-show {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 20;
+    /* round icon button for theme */
+    .btn-icon {
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.9);
-      color: var(--fg);
-      padding: 6px 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: none; /* only visible when header is hidden */
+      display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0;
+      font-size: 16px;
     }
 
-    #header-toggle-show:active {
-      transform: translateY(1px);
-    }
-
-    /* hero center */
+    /* center content */
     main {
       position: relative;
-      z-index: 1;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--nav-h) 16px 16px;
+      padding: calc(var(--nav-h) + 12px) 12px 12px;
+      z-index: 2;
     }
 
-    .home {
-      max-width: 600px;
+    #home {
+      max-width: 520px;
       width: 100%;
       text-align: center;
     }
 
-    .hero-card {
-      border-radius: 20px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(15,23,42,0.95);
-      padding: 24px 18px 18px;
-      box-shadow: 0 26px 50px rgba(15,23,42,1);
+    .card {
+      background: var(--panel);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px 16px 16px;
     }
 
-    .hero-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+    /* simple christmas strip */
+    .xmas-strip {
+      font-size: 12px;
       color: var(--fg-dim);
-      margin-bottom: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+    }
+    .xmas-strip span {
+      margin: 0 2px;
     }
 
-    .hero-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent-green);
-      box-shadow: 0 0 10px rgba(34,197,94,0.9);
-    }
-
-    .hero-title {
-      margin: 0 0 4px;
-      font-size: 24px;
+    h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
       font-weight: 700;
     }
 
-    .hero-title span {
-      background: linear-gradient(120deg, #facc15, #fb7185, #38bdf8);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-sub {
-      margin: 0 0 16px;
-      font-size: 13px;
+    .sub {
+      margin: 0 0 18px;
+      font-size: 12px;
       color: var(--fg-dim);
-    }
-
-    /* bar */
-    .bar-wrap {
-      margin: 0 auto 10px;
-      max-width: 520px;
     }
 
     .bar {
@@ -257,27 +166,19 @@
       align-items: center;
       gap: 8px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.9);
-      background: rgba(15,23,42,0.98);
-      padding: 4px 5px 4px 12px;
-      box-shadow:
-        0 16px 35px rgba(15,23,42,1),
-        0 0 0 1px rgba(15,23,42,0.9);
+      border: 1px solid var(--border);
+      padding: 4px 4px 4px 12px;
+      background: var(--panel);
     }
 
-    .bar-prefix {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+    .prefix {
+      font-size: 11px;
       color: var(--fg-dim);
       white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .bar-prefix span:first-child {
-      font-size: 13px;
+    .prefix span:first-child {
+      margin-right: 4px;
     }
 
     .bar-input {
@@ -285,57 +186,42 @@
       min-width: 0;
     }
 
-    #sj-form { margin: 0; }
+    #sj-form {
+      margin: 0;
+    }
 
     #sj-address {
       width: 100%;
       border: none;
       outline: none;
       background: transparent;
-      font: 13px/1.3 "Poppins", system-ui, sans-serif;
       color: var(--fg);
+      font: 13px/1.3 "Poppins", system-ui, sans-serif;
     }
 
     #sj-address::placeholder {
-      color: rgba(148,163,184,0.8);
+      color: var(--fg-dim);
     }
 
     .go-btn {
-      border-radius: 999px;
       border: none;
-      padding: 7px 14px;
+      border-radius: 999px;
+      padding: 6px 14px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
-      color: #f9fafb;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      background: var(--accent);
+      color: var(--accent-text);
     }
 
     .go-btn:active {
       transform: translateY(1px);
     }
 
-    .hero-foot {
+    .foot {
       margin-top: 10px;
       font-size: 11px;
       color: var(--fg-dim);
-    }
-
-    .hero-foot a {
-      color: var(--fg);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .hero-foot a:hover {
-      text-decoration: underline;
-    }
-
-    .home-hidden {
-      display: none;
     }
 
     /* iframe surface */
@@ -350,7 +236,7 @@
       border: none;
       display: none;
       background: #000;
-      z-index: 5;
+      z-index: 1;
     }
 
     #sj-error,
@@ -358,9 +244,13 @@
       display: none;
     }
 
+    .home-hidden {
+      display: none;
+    }
+
     @media (max-width: 480px) {
-      .hero-card { padding: 20px 14px 16px; }
-      .hero-title { font-size: 20px; }
+      h1 { font-size: 18px; }
+      .card { padding: 16px 12px 12px; }
     }
   </style>
 
@@ -439,10 +329,8 @@
       window.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("sj-form");
         const input = document.getElementById("sj-address");
-        const homeBtn = document.getElementById("nav-home-btn");
-        const hideBtn = document.getElementById("nav-hide-btn");
-        const showFab = document.getElementById("header-toggle-show");
-        const header = document.querySelector("header");
+        const homeBtn = document.getElementById("home-btn");
+        const themeToggle = document.getElementById("theme-toggle");
 
         if (form) {
           form.addEventListener("submit", function (e) {
@@ -457,105 +345,97 @@
           });
         }
 
-        if (hideBtn && showFab && header) {
-          hideBtn.addEventListener("click", function () {
-            header.style.display = "none";
-            showFab.style.display = "inline-flex";
-          });
-
-          showFab.addEventListener("click", function () {
-            header.style.display = "";
-            showFab.style.display = "inline-flex"; // prevent flash
-            // small delay so layout is stable then hide FAB
-            setTimeout(function () {
-              showFab.style.display = "none";
-            }, 0);
-          });
-
-          // ensure FAB is hidden on first load
-          showFab.style.display = "none";
-        }
-
         if (input) input.focus();
+
+        // THEME TOGGLE (moon / sun)
+        if (themeToggle) {
+          function setTheme(theme) {
+            document.body.setAttribute("data-theme", theme);
+            localStorage.setItem("aurababy-theme", theme);
+            // ☾ for dark, ☼ for light
+            themeToggle.textContent = theme === "dark" ? "☾" : "☼";
+          }
+
+          const saved =
+            localStorage.getItem("aurababy-theme") || "dark";
+          setTheme(saved);
+
+          themeToggle.addEventListener("click", function () {
+            const current =
+              document.body.getAttribute("data-theme") || "dark";
+            const next = current === "dark" ? "light" : "dark";
+            setTheme(next);
+          });
+        }
       });
     })();
   </script>
 </head>
 
-<body>
+<body data-theme="dark">
   <header>
-    <div class="nav-inner">
-      <div class="nav">
-        <div class="nav-left">
-          <div class="logo">
-            <div class="logo-inner">PT</div>
-          </div>
-          <div>
-            <div class="nav-title-main">AURABABY PR0XY</div>
-          </div>
-        </div>
-        <div class="nav-right">
-          <button id="nav-home-btn" class="nav-btn">
-            <span>⌂</span><span>Home</span>
-          </button>
-          <button id="nav-hide-btn" class="nav-btn" title="Hide header">
-            <span>✕</span><span>Hide</span>
-          </button>
-        </div>
-      </div>
+    <div class="brand">
+      Aurababy Pr0xy
+    </div>
+    <div class="header-actions">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="btn-pill btn-icon"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >
+        ☾
+      </button>
+      <button id="home-btn" type="button" class="btn-pill">Home</button>
     </div>
   </header>
 
-  <!-- floating + button to bring header back -->
-  <button id="header-toggle-show" type="button">+</button>
-
   <main>
-    <section id="home" class="home">
-      <div class="hero-card">
-        <div class="hero-label">
-          <span class="hero-dot"></span>
-          <span>AURABABY · SCRAMJET</span>
+    <section id="home">
+      <div class="card">
+        <div class="xmas-strip">
+          <span>🎄</span><span>❄</span><span>🎁</span><span>❄</span><span>🎄</span>
         </div>
-        <h1 class="hero-title">
-          AURABABY PR0XY
-        </h1>
 
-        <div class="bar-wrap">
-          <div class="bar">
-            <div class="bar-prefix">
-              <span>⭢</span>
-              <span>Pr0xy</span>
-            </div>
-            <div class="bar-input">
-              <form id="sj-form" autocomplete="off">
-                <!-- keep this so search.js has its engine value -->
-                <input
-                  id="sj-search-engine"
-                  type="hidden"
-                  value="https://www.google.com/search?q=%s"
-                />
-                <input
-                  id="sj-address"
-                  type="text"
-                  placeholder="Search anything!"
-                  spellcheck="false"
-                  inputmode="url"
-                />
-              </form>
-            </div>
-            <button
-              class="go-btn"
-              type="button"
-              onclick="go(document.getElementById('sj-address').value)"
-            >
-              <span>Go</span>
-            </button>
+        <h1>Aurababy Pr0xy</h1>
+        <p class="sub">Enter a URL or search query to begin.</p>
+
+        <div class="bar">
+          <div class="prefix">
+            <span>⭢</span><span>Proxy</span>
           </div>
+
+          <div class="bar-input">
+            <form id="sj-form" autocomplete="off">
+              <!-- keep this so search.js has its engine value -->
+              <input
+                id="sj-search-engine"
+                type="hidden"
+                value="https://www.google.com/search?q=%s"
+              />
+              <input
+                id="sj-address"
+                type="text"
+                placeholder="google.com or search..."
+                spellcheck="false"
+                inputmode="url"
+              />
+            </form>
+          </div>
+
+          <button
+            class="go-btn"
+            type="button"
+            onclick="go(document.getElementById('sj-address').value)"
+          >
+            Go
+          </button>
         </div>
 
-        <div class="hero-foot">
+        <p class="sub foot">
           Powered by Scramjet / Wisp · Made by TRINITY
-        </div>
+        </p>
       </div>
     </section>
   </main>
