@@ -143,15 +143,6 @@
       gap: 6px;
     }
 
-    .nav-chip {
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px dashed rgba(148,163,184,0.6);
-      color: var(--fg-dim);
-      font-size: 10px;
-      display: none; /* keep it dead simple */
-    }
-
     .nav-btn {
       border-radius: 999px;
       border: 1px solid rgba(148,163,184,0.7);
@@ -477,7 +468,6 @@
         <h1 class="hero-title">
           AURABABY PR0XY
         </h1>
-        </p>
 
         <div class="bar-wrap">
           <div class="bar">
@@ -487,6 +477,12 @@
             </div>
             <div class="bar-input">
               <form id="sj-form" autocomplete="off">
+                <!-- keep this so search.js has its engine value -->
+                <input
+                  id="sj-search-engine"
+                  type="hidden"
+                  value="https://www.google.com/search?q=%s"
+                />
                 <input
                   id="sj-address"
                   type="text"
@@ -508,7 +504,6 @@
 
         <div class="hero-foot">
           Powered by Scramjet / Wisp · Made by TRINITY
-          </a>
         </div>
       </div>
     </section>
