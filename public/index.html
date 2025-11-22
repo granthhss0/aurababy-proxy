@@ -3,353 +3,275 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PROJECT TRINITY · Christmas Proxy</title>
+  <title>Aurababy Pr0xy</title>
   <link rel="shortcut icon" content="favicon.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
 
   <style>
     :root {
-      --bg: #f7fafc;
-      --bg-card: #ffffff;
-      --bg-header: #ffffff;
-      --border: #e2e8f0;
-      --fg: #111827;
-      --fg-dim: #6b7280;
-      --accent-red: #ef4444;
-      --accent-green: #16a34a;
-      --accent-gold: #fbbf24;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.18);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --header-h: 70px;
+      --nav-h: 60px;
+      --fg: #e5e7eb;
+      --fg-dim: #9ca3af;
+      --accent: #38bdf8;
+      --accent-green: #22c55e;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
+      font-family: "Poppins", system-ui, sans-serif;
       color: var(--fg);
       background:
-        radial-gradient(circle at 0% 0%, #fee2e2 0, transparent 55%),
-        radial-gradient(circle at 100% 0%, #dcfce7 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, #fef3c7 0, transparent 55%),
-        #f7fafc;
+        radial-gradient(circle at 0% 0%, #0f172a 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, #1e293b 0, transparent 55%),
+        #020617;
+      overflow: hidden;
       position: relative;
-      overflow-x: hidden;
     }
 
-    /* Fake snow */
-    body::before,
-    body::after {
+    /* subtle stars */
+    body::before {
       content: "";
       position: fixed;
-      inset: -50px;
+      inset: -40px;
       pointer-events: none;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,0.9) 0, rgba(255,255,255,0) 55%),
-        radial-gradient(circle, rgba(255,255,255,0.7) 0, rgba(255,255,255,0) 55%);
-      background-size: 8px 8px, 12px 12px;
-      opacity: 0.35;
-      animation: snow 22s linear infinite;
+        radial-gradient(circle, rgba(255,255,255,0.6) 0, transparent 55%),
+        radial-gradient(circle, rgba(148,163,184,0.7) 0, transparent 55%);
+      background-size: 2px 2px, 1px 1px;
+      opacity: 0.4;
+      animation: drift 60s linear infinite;
       mix-blend-mode: screen;
       z-index: 0;
     }
 
-    body::after {
-      opacity: 0.2;
-      animation-duration: 35s;
-      animation-direction: reverse;
+    @keyframes drift {
+      from { transform: translate3d(0, -30px, 0); }
+      to   { transform: translate3d(0, 30px, 0); }
     }
 
-    @keyframes snow {
-      from { transform: translate3d(0, -40px, 0); }
-      to   { transform: translate3d(0, 40px, 0); }
-    }
-
-    /* Header */
+    /* simple glass nav */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: var(--header-h);
+      height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 20;
-      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      z-index: 10;
+      pointer-events: none;
+      padding: 8px 0;
     }
 
-    .header-inner {
+    .nav-inner {
+      pointer-events: auto;
+      max-width: 900px;
       width: 100%;
-      max-width: 1040px;
-      padding: 0 20px;
+      padding: 0 16px;
+    }
+
+    .nav {
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(16px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      padding: 0 12px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
-    .brand {
+    .nav-left {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 14px;
-      color: var(--fg);
+      gap: 8px;
     }
 
-    .brand-logo {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
+    .logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
       background:
-        conic-gradient(from 0deg, #ef4444, #f97316, #facc15, #22c55e, #0ea5e9, #6366f1, #ec4899, #ef4444);
+        conic-gradient(from 0deg, #f97316, #facc15, #22c55e, #38bdf8, #6366f1, #ec4899, #f97316);
       padding: 2px;
-      box-shadow: 0 0 0 2px #ffffff, 0 8px 18px rgba(15,23,42,0.2);
+      box-shadow: 0 0 0 2px #020617;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
     }
 
-    .brand-logo-inner {
+    .logo-inner {
       width: 100%;
       height: 100%;
-      border-radius: 8px;
-      background: radial-gradient(circle at 30% 0%, #fee2e2, #111827);
+      border-radius: 999px;
+      background: #020617;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      color: #fefce8;
+      color: #e5e7eb;
     }
 
-    .brand-sub {
-      font-size: 10px;
+    .nav-title-main {
+      font-weight: 600;
+    }
+
+    .nav-title-sub {
+      font-size: 9px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--fg-dim);
     }
 
-    .header-actions {
+    .nav-right {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
-    }
-
-    .header-pill {
-      border-radius: var(--radius-pill);
-      border: 1px dashed rgba(209, 213, 219, 1);
-      padding: 5px 10px;
-      display: inline-flex;
-      align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148,163,184,0.6);
       color: var(--fg-dim);
+      font-size: 10px;
+      display: none; /* keep it dead simple */
     }
 
-    .header-pill span:last-child {
-      font-weight: 600;
+    .nav-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.95);
       color: var(--fg);
-    }
-
-    .btn {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(209, 213, 219, 1);
-      background: #ffffff;
-      padding: 7px 14px;
-      font-size: 12px;
-      font-weight: 700;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow:
-        0 10px 20px rgba(148,163,184,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-      color: var(--fg);
+      gap: 4px;
     }
 
-    .btn-small {
-      padding: 6px 10px;
-      font-size: 11px;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      box-shadow: none;
-    }
-
-    .btn-danger {
-      border-color: rgba(248,113,113,0.8);
-      background: linear-gradient(135deg, #fee2e2, #fecaca);
-      color: #991b1b;
-    }
-
-    .btn:active {
+    .nav-btn:active {
       transform: translateY(1px);
-      box-shadow: 0 4px 10px rgba(148,163,184,0.3);
     }
 
+    /* hero center */
     main {
       position: relative;
       z-index: 1;
-      max-width: 1040px;
-      margin: calc(var(--header-h) + 22px) auto 40px;
-      padding: 0 20px 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--nav-h) 16px 16px;
     }
 
-    /* Home / hero card */
     .home {
-      display: block;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
     }
 
     .hero-card {
-      background: var(--bg-card);
-      border-radius: 26px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 22px 18px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.95);
+      padding: 24px 18px 18px;
+      box-shadow: 0 26px 50px rgba(15,23,42,1);
     }
 
-    .hero-card::before {
-      content: "❄";
-      position: absolute;
-      right: 24px;
-      top: 16px;
-      font-size: 26px;
-      opacity: 0.35;
-    }
-
-    .hero-card::after {
-      content: "🎄";
-      position: absolute;
-      right: 16px;
-      bottom: 14px;
-      font-size: 24px;
-      opacity: 0.4;
-    }
-
-    .garland {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 20px;
-      pointer-events: none;
-      background-image:
-        radial-gradient(circle, #ef4444 0, #ef4444 40%, transparent 60%),
-        radial-gradient(circle, #22c55e 0, #22c55e 40%, transparent 60%),
-        radial-gradient(circle, #facc15 0, #facc15 40%, transparent 60%),
-        radial-gradient(circle, #3b82f6 0, #3b82f6 40%, transparent 60%);
-      background-size: 10px 10px;
-      background-repeat: repeat-x;
-      background-position:
-        0 6px,
-        10px 10px,
-        20px 6px,
-        30px 10px;
-      opacity: 0.9;
-    }
-
-    .hero-top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .hero-copy {
-      flex: 2 1 260px;
-      min-width: 0;
-      padding-top: 10px;
-    }
-
-    .hero-tag {
-      font-size: 11px;
+    .hero-label {
+      font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       color: var(--fg-dim);
-      margin: 0 0 6px;
+      margin-bottom: 8px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
-    .hero-tag-dot {
-      width: 8px;
-      height: 8px;
+    .hero-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
       background: var(--accent-green);
-      box-shadow: 0 0 9px rgba(34,197,94,0.9);
+      box-shadow: 0 0 10px rgba(34,197,94,0.9);
     }
 
     .hero-title {
       margin: 0 0 4px;
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #facc15, #fb7185, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     .hero-sub {
-      margin: 0 0 14px;
+      margin: 0 0 16px;
       font-size: 13px;
       color: var(--fg-dim);
-      font-weight: 500;
     }
 
-    .hero-sub strong {
-      color: var(--accent-red);
+    /* bar */
+    .bar-wrap {
+      margin: 0 auto 10px;
+      max-width: 520px;
     }
 
-    /* Search bar */
-    .address-shell {
-      margin-top: 8px;
-    }
-
-    .address-bar {
+    .bar {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #f9fafb;
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
-      padding: 4px 4px 4px 12px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.9);
+      background: rgba(15,23,42,0.98);
+      padding: 4px 5px 4px 12px;
+      box-shadow:
+        0 16px 35px rgba(15,23,42,1),
+        0 0 0 1px rgba(15,23,42,0.9);
     }
 
-    .address-prefix {
-      font-size: 11px;
+    .bar-prefix {
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--fg-dim);
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .bar-input-wrap {
+    .bar-prefix span:first-child {
+      font-size: 13px;
+    }
+
+    .bar-input {
       flex: 1 1 auto;
       min-width: 0;
     }
 
-    #sj-form {
-      margin: 0;
-    }
+    #sj-form { margin: 0; }
 
     #sj-address {
       width: 100%;
@@ -361,226 +283,60 @@
     }
 
     #sj-address::placeholder {
-      color: #9ca3af;
+      color: rgba(148,163,184,0.8);
     }
 
     .go-btn {
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       border: none;
       padding: 7px 14px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
       background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #f9fafb;
-      box-shadow:
-        0 12px 20px rgba(22,163,74,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.8);
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      white-space: nowrap;
     }
 
     .go-btn:active {
       transform: translateY(1px);
-      box-shadow:
-        0 6px 12px rgba(22,163,74,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.7);
     }
 
-    .go-btn span:first-child {
-      font-size: 13px;
-    }
-
-    .hero-meta {
-      margin-top: 14px;
+    .hero-foot {
+      margin-top: 10px;
       font-size: 11px;
       color: var(--fg-dim);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: space-between;
     }
 
-    .hero-meta a {
+    .hero-foot a {
       color: var(--fg);
       text-decoration: none;
       font-weight: 600;
     }
 
-    .hero-meta a:hover {
+    .hero-foot a:hover {
       text-decoration: underline;
-    }
-
-    .hero-side {
-      flex: 1.2 1 220px;
-      min-width: 0;
-      padding: 10px 12px 10px;
-      border-radius: 18px;
-      border: 1px dashed #fecaca;
-      background: linear-gradient(135deg, #fef2f2, #ffe4e6);
-      font-size: 11px;
-      color: #9f1239;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .hero-side-title {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .badge {
-      border-radius: var(--radius-pill);
-      padding: 3px 7px;
-      font-size: 10px;
-      border: 1px solid rgba(248,113,113,0.7);
-      background: rgba(248,250,252,0.5);
-      color: #b91c1c;
-    }
-
-    .hero-side-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .hero-side-row span:first-child {
-      opacity: 0.8;
-    }
-
-    .hero-side-row span:last-child {
-      font-weight: 700;
-    }
-
-    /* Quick links */
-    .home-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    @media (max-width: 820px) {
-      .hero-top {
-        flex-direction: column;
-      }
-      .home-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 14px 16px 14px;
-      box-shadow:
-        0 12px 26px rgba(148,163,184,0.26),
-        inset 0 1px 0 rgba(255,255,255,0.9);
-      font-size: 12px;
-    }
-
-    .card-title {
-      margin: 0 0 10px;
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--fg-dim);
-    }
-
-    .quick-sites {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 8px;
-    }
-
-    .site-chip {
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
-      background: linear-gradient(135deg, #f9fafb, #fefce8);
-      padding: 7px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-size: 11px;
-      box-shadow: 0 8px 18px rgba(148,163,184,0.25);
-    }
-
-    .site-chip-badge {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .site-chip span:last-child {
-      font-weight: 600;
-      color: #374151;
-    }
-
-    .site-chip:active {
-      transform: translateY(1px);
-      box-shadow: 0 4px 10px rgba(148,163,184,0.35);
-    }
-
-    .card p {
-      margin: 0 0 6px;
-      color: var(--fg-dim);
-      font-weight: 500;
-    }
-
-    .tips-list {
-      list-style: none;
-      margin: 8px 0 0;
-      padding: 0;
-      color: var(--fg-dim);
-    }
-
-    .tips-list li {
-      margin-bottom: 4px;
-    }
-
-    .tips-list code {
-      font-family: "Poppins", monospace;
-      font-size: 11px;
-      background: #f1f5f9;
-      border-radius: 999px;
-      padding: 2px 7px;
-      border: 1px solid #e5e7eb;
-    }
-
-    /* Iframe surface */
-    #sj-frame {
-      position: fixed;
-      top: var(--header-h);
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100vw;
-      height: calc(100vh - var(--header-h));
-      border: none;
-      display: none;
-      background: #000;
-      z-index: 10;
     }
 
     .home-hidden {
       display: none;
+    }
+
+    /* iframe surface */
+    #sj-frame {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: calc(100vh - var(--nav-h));
+      border: none;
+      display: none;
+      background: #000;
+      z-index: 5;
     }
 
     #sj-error,
@@ -588,17 +344,13 @@
       display: none;
     }
 
-    @media (max-width: 520px) {
-      .brand-sub {
-        display: none;
-      }
-      .header-pill {
-        display: none;
-      }
+    @media (max-width: 480px) {
+      .hero-card { padding: 20px 14px 16px; }
+      .hero-title { font-size: 20px; }
     }
   </style>
 
-  <!-- Force WISP URL before clients load -->
+  <!-- WISP URL must be set BEFORE clients load -->
   <script>
     window.WISP_URL =
       (location.protocol === "https:" ? "wss://" : "ws://") +
@@ -617,7 +369,6 @@
 
   <script>
     (function () {
-      // basic prox helper
       function prox(u) {
         try {
           return location.origin + "/scramjet/" + encodeURIComponent(u);
@@ -629,12 +380,12 @@
       function normalizeInput(q) {
         q = (q || "").trim();
         if (!q) return "";
-        const looksLikeScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(q);
+        const hasScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(q);
         const hasDot = q.includes(".");
-        if (!looksLikeScheme && !hasDot) {
+        if (!hasScheme && !hasDot) {
           return "https://www.google.com/search?q=" + encodeURIComponent(q);
         }
-        if (!looksLikeScheme && hasDot) {
+        if (!hasScheme && hasDot) {
           return "https://" + q;
         }
         return q.replace(/^http:\/\//i, "https://");
@@ -669,12 +420,12 @@
         if (input) input.value = normalized;
         showFrame(normalized);
       }
-      window.go = go; // expose for buttons
+      window.go = go;
 
       window.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("sj-form");
         const input = document.getElementById("sj-address");
-        const homeBtn = document.getElementById("home-btn");
+        const homeBtn = document.getElementById("nav-home-btn");
 
         if (form) {
           form.addEventListener("submit", function (e) {
@@ -689,10 +440,7 @@
           });
         }
 
-        // auto-focus input on load
-        if (input) {
-          input.focus();
-        }
+        if (input) input.focus();
       });
     })();
   </script>
@@ -700,27 +448,21 @@
 
 <body>
   <header>
-    <div class="header-inner">
-      <div>
-        <div class="brand">
-          <div class="brand-logo">
-            <div class="brand-logo-inner">PT</div>
+    <div class="nav-inner">
+      <div class="nav">
+        <div class="nav-left">
+          <div class="logo">
+            <div class="logo-inner">PT</div>
           </div>
           <div>
-            <div>PROJECT TRINITY</div>
-            <div class="brand-sub">Aurababy · Scramjet Node</div>
+            <div class="nav-title-main">AURABABY PR0XY</div>
           </div>
         </div>
-      </div>
-
-      <div class="header-actions">
-        <div class="header-pill">
-          <span>🎄</span>
-          <span>Holiday Relay · v1.2</span>
+        <div class="nav-right">
+          <button id="nav-home-btn" class="nav-btn">
+            <span>⌂</span><span>Home</span>
+          </button>
         </div>
-        <button id="home-btn" class="btn btn-small btn-ghost" title="Back to homepage">
-          ⌂ Home
-        </button>
       </div>
     </div>
   </header>
@@ -728,120 +470,46 @@
   <main>
     <section id="home" class="home">
       <div class="hero-card">
-        <div class="garland"></div>
-
-        <div class="hero-top">
-          <div class="hero-copy">
-            <p class="hero-tag">
-              <span class="hero-tag-dot"></span>
-              AURABABY · CHRISTMAS PROXY
-            </p>
-            <h1 class="hero-title">Route it through the sleigh.</h1>
-            <p class="hero-sub">
-              Type a <strong>URL</strong> or a <strong>search</strong> below.
-              If it has a dot, it goes to a site. If it doesn’t, it goes to Google –
-              all tunneled through your Scramjet node.
-            </p>
-
-            <div class="address-shell">
-              <div class="address-bar">
-                <div class="address-prefix">Proxy</div>
-                <div class="bar-input-wrap">
-                  <form id="sj-form" autocomplete="off">
-                    <input
-                      id="sj-address"
-                      type="text"
-                      placeholder="Ex: youtube.com   or   how to wrap gifts fast"
-                      spellcheck="false"
-                      inputmode="url"
-                    />
-                  </form>
-                </div>
-                <button class="go-btn" type="button" onclick="go(document.getElementById('sj-address').value)">
-                  <span>🎅</span>
-                  <span>Go</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="hero-meta">
-              <span>Aurababy Christmas Shell · light mode only</span>
-              <span>
-                Credits: Scramjet / Wisp ·
-                <a href="https://www.trinity.gt.tc" target="_blank" rel="noopener">
-                  trinity.gt.tc
-                </a>
-              </span>
-            </div>
-          </div>
-
-          <aside class="hero-side">
-            <div class="hero-side-title">
-              <span>NODE STATUS</span>
-              <span class="badge">LIVE · ❄ MODE</span>
-            </div>
-            <div class="hero-side-row">
-              <span>Engine</span>
-              <span>Scramjet + Wisp</span>
-            </div>
-            <div class="hero-side-row">
-              <span>Profile</span>
-              <span>Aurababy Relay</span>
-            </div>
-            <div class="hero-side-row">
-              <span>Theme</span>
-              <span>Light · Christmas</span>
-            </div>
-            <div class="hero-side-row">
-              <span>Tabs</span>
-              <span>Single view, simple</span>
-            </div>
-          </aside>
+        <div class="hero-label">
+          <span class="hero-dot"></span>
+          <span>AURABABY · SCRAMJET</span>
         </div>
-      </div>
+        <h1 class="hero-title">
+          AURABABY PR0XY
+        </h1>
+        </p>
 
-      <div class="home-grid">
-        <article class="card">
-          <h2 class="card-title">Quick destinations</h2>
-          <div class="quick-sites">
-            <button class="site-chip" onclick="go('https://www.google.com')">
-              <span class="site-chip-badge">G</span>
-              <span>Google</span>
-            </button>
-            <button class="site-chip" onclick="go('https://www.youtube.com')">
-              <span class="site-chip-badge">YT</span>
-              <span>YouTube</span>
-            </button>
-            <button class="site-chip" onclick="go('https://www.tiktok.com')">
-              <span class="site-chip-badge">TT</span>
-              <span>TikTok</span>
-            </button>
-            <button class="site-chip" onclick="go('https://www.wikipedia.org')">
-              <span class="site-chip-badge">W</span>
-              <span>Wikipedia</span>
-            </button>
-            <button class="site-chip" onclick="go('https://github.com')">
-              <span class="site-chip-badge">GH</span>
-              <span>GitHub</span>
-            </button>
-            <button class="site-chip" onclick="go('https://www.xbox.com/play')">
-              <span class="site-chip-badge">XB</span>
-              <span>Xbox Cloud</span>
+        <div class="bar-wrap">
+          <div class="bar">
+            <div class="bar-prefix">
+              <span>⭢</span>
+              <span>Pr0xy</span>
+            </div>
+            <div class="bar-input">
+              <form id="sj-form" autocomplete="off">
+                <input
+                  id="sj-address"
+                  type="text"
+                  placeholder="Search anything!
+                  spellcheck="false"
+                  inputmode="url"
+                />
+              </form>
+            </div>
+            <button
+              class="go-btn"
+              type="button"
+              onclick="go(document.getElementById('sj-address').value)"
+            >
+              <span>Go</span>
             </button>
           </div>
-        </article>
+        </div>
 
-        <article class="card">
-          <h2 class="card-title">How the routing works</h2>
-          <p>● Everything runs inside a single iframe (<code>#sj-frame</code>).</p>
-          <p>● The sleigh (form) decides if it’s a URL or a search.</p>
-          <p>● Your node wraps it through <code>/scramjet/&lt;encoded URL&gt;</code>.</p>
-          <ul class="tips-list">
-            <li><code>youtube.com</code> → https://youtube.com</li>
-            <li><code>how to beat this level</code> → Google search</li>
-            <li><code>https://...</code> → used exactly as written</li>
-          </ul>
-        </article>
+        <div class="hero-foot">
+          Powered by Scramjet / Wisp · Made by TRINITY
+          </a>
+        </div>
       </div>
     </section>
   </main>
@@ -849,7 +517,7 @@
   <!-- Scramjet surface -->
   <iframe id="sj-frame"></iframe>
 
-  <!-- Hooks for index.js / error handling if needed -->
+  <!-- Error hooks for your other JS -->
   <p id="sj-error"></p>
   <pre id="sj-error-code"></pre>
 </body>
